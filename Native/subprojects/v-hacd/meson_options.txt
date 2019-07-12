@@ -1,0 +1,3 @@
+option('no_opencl', type: 'boolean', value: 'false')
+option('no_openmp', type: 'boolean', value: 'false')
+option('ocl_root', type: 'string')
