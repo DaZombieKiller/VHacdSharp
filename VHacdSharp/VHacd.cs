@@ -62,12 +62,13 @@ namespace VHacdSharp
                 );
 
                 // If the token is canceled, we need to notify the library
-                cancellationToken.Register(() => VHACD_Cancel(handle));
-
-                // Unfortunately, the V-HACD API lacks proper completion events,
-                // so we need to resort to a busy-loop, checking the IsReady value.
-                while (!VHACD_IsReady(handle))
-                    cancellationToken.ThrowIfCancellationRequested();
+                using (cancellationToken.Register(() => VHACD_Cancel(handle)))
+                {
+                    // Unfortunately, the V-HACD API lacks proper completion events,
+                    // so we need to resort to a busy-loop, checking the IsReady value.
+                    while (!VHACD_IsReady(handle))
+                        cancellationToken.ThrowIfCancellationRequested();
+                }
 
                 return new ConvexDecomposition
                 {
