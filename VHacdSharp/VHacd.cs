@@ -11,7 +11,7 @@ namespace VHacdSharp
 
     public partial class VHacd : IDisposable
     {
-        readonly GCHandle gcHandle;
+        GCHandle gcHandle;
 
         readonly Handle handle;
 
