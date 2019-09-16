@@ -42,7 +42,7 @@ namespace VHacdSharp
         public uint MaxHulls { get; private set; }
 
         /// <summary>Project the output convex hull vertices onto the original source mesh to increase the floating point accuracy of the results.</summary>
-        public bool ProjectHullVertices { get; private set; }
+        public bool HullVertexProjection { get; private set; }
 
         public static readonly ConvexDecompositionOptions Default = new ConvexDecompositionOptions()
             .WithResolution(100_000)
@@ -57,7 +57,7 @@ namespace VHacdSharp
             .WithHullApproximation()
             .WithOpenCLAcceleration()
             .WithMaxHulls(1024)
-            .WithProjectHullVertices();
+            .WithHullVertexProjection();
 
         ConvexDecompositionOptions(ConvexDecompositionOptions source)
             => this = source;
@@ -141,7 +141,7 @@ namespace VHacdSharp
         public ConvexDecompositionOptions WithMaxHulls(uint maxHulls)
             => new ConvexDecompositionOptions(this) { MaxHulls = maxHulls };
 
-        public ConvexDecompositionOptions WithProjectHullVertices(bool enable = true)
-            => new ConvexDecompositionOptions(this) { ProjectHullVertices = enable };
+        public ConvexDecompositionOptions WithHullVertexProjection(bool enable = true)
+            => new ConvexDecompositionOptions(this) { HullVertexProjection = enable };
     }
 }

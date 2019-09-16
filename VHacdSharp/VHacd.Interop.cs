@@ -99,7 +99,7 @@ namespace VHacdSharp
                 m_convexhullApproximation = options.HullApproximation ? 1u : 0u,
                 m_oclAcceleration         = options.OpenCLAcceleration ? 1u : 0u,
                 m_maxConvexHulls          = options.MaxHulls,
-                m_projectHullVertices     = options.ProjectHullVertices
+                m_projectHullVertices     = options.HullVertexProjection
             };
         }
     }
