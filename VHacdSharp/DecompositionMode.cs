@@ -2,7 +2,7 @@
 {
     public enum DecompositionMode
     {
-        Voxel       = 0,
-        Tetrahedron = 1
+        Voxel,
+        Tetrahedron
     }
 }

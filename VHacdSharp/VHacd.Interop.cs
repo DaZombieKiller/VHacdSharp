@@ -6,7 +6,7 @@ namespace VHacdSharp
 {
     partial class VHacd
     {
-        const string DllName = "libvhacd";
+        const string DllName = "libVHACD";
 
         [UnmanagedFunctionPointer(Cdecl)]
         delegate void UserLoggerDelegate(IntPtr gcHandle, IntPtr message);
@@ -84,26 +84,23 @@ namespace VHacdSharp
             public uint m_maxConvexHulls;
             public bool m_projectHullVertices;
 
-            public static explicit operator UnmanagedComputeParameters(ComputeParameters parameters)
+            public static UnmanagedComputeParameters FromDecompositionOptions(ConvexDecompositionOptions options) => new UnmanagedComputeParameters
             {
-                return new UnmanagedComputeParameters
-                {
-                    m_resolution              = parameters.Resolution,
-                    m_concavity               = parameters.Concavity,
-                    m_planeDownsampling       = parameters.PlaneDownsampling,
-                    m_convexhullDownsampling  = parameters.HullDownsampling,
-                    m_alpha                   = parameters.Alpha,
-                    m_beta                    = parameters.Beta,
-                    m_pca                     = parameters.PCA ? 1u : 0u,
-                    m_mode                    = (uint)parameters.DecompositionMode,
-                    m_maxNumVerticesPerCH     = parameters.MaxHullVertices,
-                    m_minVolumePerCH          = parameters.MinHullVolume,
-                    m_convexhullApproximation = parameters.HullApproximation ? 1u : 0u,
-                    m_oclAcceleration         = parameters.OpenCLAcceleration ? 1u : 0u,
-                    m_maxConvexHulls          = parameters.MaxHulls,
-                    m_projectHullVertices     = parameters.ProjectHullVertices
-                };
-            }
+                m_resolution              = options.Resolution,
+                m_concavity               = options.Concavity,
+                m_planeDownsampling       = options.PlaneDownsampling,
+                m_convexhullDownsampling  = options.HullDownsampling,
+                m_alpha                   = options.Alpha,
+                m_beta                    = options.Beta,
+                m_pca                     = options.PrincipalComponentAnalysis ? 1u : 0u,
+                m_mode                    = (uint)options.DecompositionMode,
+                m_maxNumVerticesPerCH     = options.MaxHullVertices,
+                m_minVolumePerCH          = options.MinHullVolume,
+                m_convexhullApproximation = options.HullApproximation ? 1u : 0u,
+                m_oclAcceleration         = options.OpenCLAcceleration ? 1u : 0u,
+                m_maxConvexHulls          = options.MaxHulls,
+                m_projectHullVertices     = options.ProjectHullVertices
+            };
         }
     }
 }

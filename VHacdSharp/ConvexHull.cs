@@ -2,11 +2,19 @@
 
 namespace VHacdSharp
 {
-    public class ConvexHull
+    public readonly struct ConvexHull
     {
-        public IReadOnlyList<double> Points { get; internal set; }
-        public IReadOnlyList<uint> Triangles { get; internal set; }
-        public double Volume { get; internal set; }
-        public Vector3D Center { get; internal set; }
+        public IReadOnlyList<TVector3<double>> Vertices { get; }
+        public IReadOnlyList<uint> Indices { get; }
+        public TVector3<double> Center { get; }
+        public double Volume { get; }
+
+        public ConvexHull(IReadOnlyList<TVector3<double>> vertices, IReadOnlyList<uint> indices, double volume, TVector3<double> center)
+        {
+            Vertices = vertices;
+            Indices  = indices;
+            Center   = center;
+            Volume   = volume;
+        }
     }
 }
