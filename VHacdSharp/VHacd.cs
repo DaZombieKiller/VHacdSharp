@@ -44,7 +44,7 @@ namespace VHacdSharp
             ThrowIfDisposed();
 
             // Convert decomposition options to unmanaged representation
-            var parameters = UnmanagedComputeParameters.FromDecompositionOptions(options);
+            var parameters = ComputeParameters.FromDecompositionOptions(options);
 
             // A proper API for OpenCL support isn't exposed yet,
             // so to be safe it's forced off for now.
@@ -58,9 +58,9 @@ namespace VHacdSharp
             // The async Compute() method always returns true,
             // so we don't need to bother checking its result.
             VHACD_Compute(handle,
-                ref vertices .Array[vertices .Offset], (uint)vertices .Count / 3,
-                ref triangles.Array[triangles.Offset], (uint)triangles.Count / 3,
-                ref parameters
+                in vertices .Array[vertices .Offset], (uint)vertices .Count / 3,
+                in triangles.Array[triangles.Offset], (uint)triangles.Count / 3,
+                in parameters
             );
 
             // If the token is cancelled, we need to notify the library
@@ -91,14 +91,14 @@ namespace VHacdSharp
             {
                 VHACD_GetConvexHull(handle, i, out UnmanagedConvexHull ch);
 
-                var vertices  = new TVector3<double>[ch.m_nPoints];
+                var vertices  = new Vector3D[ch.m_nPoints];
                 var triangles = new uint[ch.m_nTriangles * 3];
 
                 unsafe
                 {
                     for (uint j = 0; j < vertices.LongLength; j++)
                     {
-                        vertices[j] = new TVector3<double>(
+                        vertices[j] = new Vector3D(
                             ch.m_points[3 * j + 0],
                             ch.m_points[3 * j + 1],
                             ch.m_points[3 * j + 2]
@@ -112,7 +112,7 @@ namespace VHacdSharp
                         vertices,
                         triangles,
                         ch.m_volume,
-                        new TVector3<double>(
+                        new Vector3D(
                             ch.m_center[0],
                             ch.m_center[1],
                             ch.m_center[2]
@@ -124,11 +124,11 @@ namespace VHacdSharp
             return hulls;
         }
 
-        unsafe TVector3<double> ComputeCenterOfMass()
+        unsafe Vector3D ComputeCenterOfMass()
         {
             double* values = stackalloc double[3];
             VHACD_ComputeCenterOfMass(handle, out values[0]);
-            return new TVector3<double>(values[0], values[1], values[2]);
+            return new Vector3D(values[0], values[1], values[2]);
         }
 
         void OnLogCallback(IntPtr message)

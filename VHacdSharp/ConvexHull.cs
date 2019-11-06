@@ -4,12 +4,12 @@ namespace VHacdSharp
 {
     public readonly struct ConvexHull
     {
-        public IReadOnlyList<TVector3<double>> Vertices { get; }
+        public IReadOnlyList<Vector3D> Vertices { get; }
         public IReadOnlyList<uint> Indices { get; }
-        public TVector3<double> Center { get; }
+        public Vector3D Center { get; }
         public double Volume { get; }
 
-        public ConvexHull(IReadOnlyList<TVector3<double>> vertices, IReadOnlyList<uint> indices, double volume, TVector3<double> center)
+        public ConvexHull(IReadOnlyList<Vector3D> vertices, IReadOnlyList<uint> indices, double volume, Vector3D center)
         {
             Vertices = vertices;
             Indices  = indices;

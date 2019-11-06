@@ -5,9 +5,9 @@ namespace VHacdSharp
     public class ConvexDecomposition
     {
         public IReadOnlyList<ConvexHull> ConvexHulls { get; }
-        public TVector3<double> CenterOfMass { get; }
+        public Vector3D CenterOfMass { get; }
 
-        public ConvexDecomposition(IReadOnlyList<ConvexHull> convexHulls, TVector3<double> centerOfMass)
+        public ConvexDecomposition(IReadOnlyList<ConvexHull> convexHulls, Vector3D centerOfMass)
         {
             ConvexHulls  = convexHulls;
             CenterOfMass = centerOfMass;

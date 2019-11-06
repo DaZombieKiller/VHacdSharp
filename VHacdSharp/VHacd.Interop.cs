@@ -28,7 +28,7 @@ namespace VHacdSharp
 
         [DllImport(DllName, CallingConvention = Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        static extern bool VHACD_Compute(Handle self, ref double points, uint countPoints, ref uint triangles, uint countTriangles, ref UnmanagedComputeParameters parameters);
+        static extern bool VHACD_Compute(Handle self, in double points, uint countPoints, in uint triangles, uint countTriangles, in ComputeParameters parameters);
 
         [DllImport(DllName, CallingConvention = Cdecl)]
         static extern uint VHACD_GetNConvexHulls(Handle self);
@@ -65,7 +65,7 @@ namespace VHacdSharp
             public fixed double m_center[3];
         }
 
-        struct UnmanagedComputeParameters
+        struct ComputeParameters
         {
             public double m_concavity;
             public double m_alpha;
@@ -84,7 +84,7 @@ namespace VHacdSharp
             public uint m_maxConvexHulls;
             public bool m_projectHullVertices;
 
-            public static UnmanagedComputeParameters FromDecompositionOptions(ConvexDecompositionOptions options) => new UnmanagedComputeParameters
+            public static ComputeParameters FromDecompositionOptions(in ConvexDecompositionOptions options) => new ComputeParameters
             {
                 m_resolution              = options.Resolution,
                 m_concavity               = options.Concavity,
